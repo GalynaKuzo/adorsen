@@ -124,28 +124,38 @@ public class SeleniumEasyII {
             JqueryDropdownSearch_Menu.click();
             WebElement SelectCountry = driver.findElementByXPath("/html/body/div[2]/div/div[2]/div[1]/div/div[2]/span/span[1]/span");
             SelectCountry.click();
-            WebElement SearchField = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
-            SearchField.click();
-            SearchField.sendKeys("Af");
+            WebElement SearchFieldCountry = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
+            SearchFieldCountry.click();
+            SearchFieldCountry.sendKeys("Af");
             WebElement ResultsHighlighted = driver.findElement(By.xpath("/html/body/span/span/span[2]"));
             Assert.assertEquals("South Africa", ResultsHighlighted.getText());
-            SearchField.clear();
-            SearchField.sendKeys("De");
+            SearchFieldCountry.clear();
+            SearchFieldCountry.sendKeys("De");
             Assert.assertEquals("Bangladesh\n" +
                     "Denmark", ResultsHighlighted.getText());
-            WebElement Denmark = driver.findElement(By.xpath("//*[@id=\"select2-country-results\"]/li[2]"));
-            Denmark.click();
-            Assert.assertEquals("Denmark", SelectCountry.getText());
+            WebElement SelectCountryDenmark = driver.findElement(By.xpath("//*[@id=\"select2-country-results\"]/li[2]"));
+            SelectCountryDenmark.click();
+            WebElement DisplayedSelectedCoutry = driver.findElement(By.xpath("//*[@id=\"select2-country-container\"]"));
+            Assert.assertEquals("Denmark", DisplayedSelectedCoutry.getText());
 
-            WebElement SelectStateDropDown = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div[2]/span/span[1]/span/ul/li/input"));
-            SelectStateDropDown.click();
+            /*WebElement SelectStateDropDown = driver.findElement(By.cssSelector("body > div.container-fluid.text-center > div > div.col-md-6.text-left > div:nth-child(3) > div > div.panel-body > span > span.selection > span > ul > li > input"));
             SelectStateDropDown.sendKeys("Al");
 
-            WebElement ResultsSearch =driver.findElement(By.className("select2-results"));
-            Assert.assertEquals("Alabama\n" +
-                    "Alaska\n" +
-                    "California", ResultsSearch.getText());
+             WebElement ResultsSearchAlabama=driver.findElement(By.cssSelector("#select2-zyvh-result-llz7-AL"));
+            Assert.assertEquals("Alabama", ResultsSearchAlabama.getText());
+             WebElement ResultsSearchAlaska=driver.findElement(By.cssSelector("#select2-zyvh-result-lefw-AK"));
+             Assert.assertEquals("Alaska", ResultsSearchAlaska.getText());
+             WebElement ResultsSearchCalifornia=driver.findElement(By.cssSelector("#select2-zyvh-result-tu4u-CA"));
+             Assert.assertEquals("California", ResultsSearchCalifornia.getText());
 
+             ResultsSearchAlabama.click();
+
+             WebElement SearchFieldState = driver.findElement(By.className("select2-selection__choice"));
+             WebElement SelectStateColorado = driver.findElement(By.xpath("//*[@id=\"select2-auaw-result-f46q-CO\"]"));
+             Assert.assertEquals("Alabama", SearchFieldState.getText());
+             SearchFieldState.click();
+             SelectStateColorado.click();
+             Assert.assertEquals("Alabama" +"Colorado", SearchFieldState.getText());  */
 
 
 
