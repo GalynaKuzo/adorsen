@@ -6,22 +6,26 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class SeleniumEasyII {
         @Test
-       public void Homework() {
+       public void dropDown() throws InterruptedException {
             System.setProperty("webdriver.chrome.driver", "Drivers\\chromedriver.exe");
             ChromeDriver driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.get("https://www.seleniumeasy.com/test/");
             driver.executeScript("window.scrollTo(0, 1000);");
-            /* WebElement GoToInputFormsMenu = driver.findElement(By.cssSelector("#treemenu > li > ul > li:nth-child(1) > a"));
+            /*
+            WebElement GoToInputFormsMenu = driver.findElement(By.cssSelector("#treemenu > li > ul > li:nth-child(1) > a"));
             WebElement SelectDropDownDemoMenu = driver.findElement(By.cssSelector("#treemenu > li > ul > li:nth-child(1) > ul > li:nth-child(4) > a"));
             GoToInputFormsMenu.click();
             SelectDropDownDemoMenu.click();
@@ -106,43 +110,65 @@ public class SeleniumEasyII {
             CommentsInputField.sendKeys("Monday arrived");
             SubmitButton.click();
             Assert.assertEquals("Ajax Request is Processing!", SuccessSubmitMessage.getText());
-            WebDriverWait wait = new WebDriverWait(driver, 10);
+
+            /*WebDriverWait wait = new WebDriverWait(driver, 10);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            /* try {
+             try {
                 driver.findElement(By.xpath("//*[@id=\"btn-submit\"]"));
             }
                catch (NoSuchElementException e) {
             }
-            WebElement SuccessAfterProgress = driver.findElementByXPath("//*[@id=\"submit-control\"]");
-            Assert.assertEquals("Form submited Successfully!", SuccessAfterProgress.getText()); */
 
-
+             Thread.sleep(1000);
+            WebElement SuccessAfterProgress = driver.findElement(By.xpath("//*[@id=\"submit-control\"]"));
+            Assert.assertEquals("Form submited Successfully!", SuccessAfterProgress.getText());     */    // Can not verify the message after loading bar finished
 
             WebElement GoToInputFormsMenuRepeatAgainAgain = driver.findElement(By.cssSelector("#treemenu > li > ul > li:nth-child(1) > a"));
             WebElement JqueryDropdownSearch_Menu = driver.findElement(By.cssSelector("#treemenu > li > ul > li:nth-child(1) > ul > li:nth-child(7) > a"));
+
             GoToInputFormsMenuRepeatAgainAgain.click();
             JqueryDropdownSearch_Menu.click();
+
             WebElement SelectCountry = driver.findElementByXPath("/html/body/div[2]/div/div[2]/div[1]/div/div[2]/span/span[1]/span");
             SelectCountry.click();
+
             WebElement SearchFieldCountry = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
             SearchFieldCountry.click();
             SearchFieldCountry.sendKeys("Af");
+
             WebElement ResultsHighlighted = driver.findElement(By.xpath("/html/body/span/span/span[2]"));
             Assert.assertEquals("South Africa", ResultsHighlighted.getText());
+
             SearchFieldCountry.clear();
             SearchFieldCountry.sendKeys("De");
             Assert.assertEquals("Bangladesh\n" +
                     "Denmark", ResultsHighlighted.getText());
+
             WebElement SelectCountryDenmark = driver.findElement(By.xpath("//*[@id=\"select2-country-results\"]/li[2]"));
             SelectCountryDenmark.click();
             WebElement DisplayedSelectedCoutry = driver.findElement(By.xpath("//*[@id=\"select2-country-container\"]"));
-            Assert.assertEquals("Denmark", DisplayedSelectedCoutry.getText());
+            Assert.assertEquals("Denmark", DisplayedSelectedCoutry.getText());                                                        //Pass
 
-            /*WebElement SelectStateDropDown = driver.findElement(By.cssSelector("body > div.container-fluid.text-center > div > div.col-md-6.text-left > div:nth-child(3) > div > div.panel-body > span > span.selection > span > ul > li > input"));
-            SelectStateDropDown.sendKeys("Al");
+             WebElement SelectStateInput = driver.findElement(By.cssSelector("body > div.container-fluid.text-center > div > div.col-md-6.text-left > div:nth-child(3) > div > div.panel-body > span > span.selection > span > ul > li > input"));
+             SelectStateInput.sendKeys("Al");
+             Thread.sleep(1000);
 
-             WebElement ResultsSearchAlabama=driver.findElement(By.cssSelector("#select2-zyvh-result-llz7-AL"));
-            Assert.assertEquals("Alabama", ResultsSearchAlabama.getText());
+            /* WebElement ResultsStates = driver.findElements(By.cssSelector("body > span > span > span"));
+             Select ResultsStatedropdown = new Select(ResultsStates);
+             Thread.sleep(1000);
+             ResultsStatedropdown.selectByVisibleText("Alabama"); */
+
+            int dropdownSize = driver.findElements(By.className("select2-results__option")).size();
+            Assert.assertEquals(dropdownSize, 3);
+
+            Assert.assertEquals(driver.findElement(By.cssSelector("#select2-nlxx-result-qgkz-AL")).getText(), "Alabama");
+ Boolean submitButton = driver.findElement(By.id("btn-submit")).isDisplayed();
+            Assert.assertTrue(submitButton, "isPresent");
+            Assert.assertFalse(submitButton, "noButton");
+
+
+
+             /*
              WebElement ResultsSearchAlaska=driver.findElement(By.cssSelector("#select2-zyvh-result-lefw-AK"));
              Assert.assertEquals("Alaska", ResultsSearchAlaska.getText());
              WebElement ResultsSearchCalifornia=driver.findElement(By.cssSelector("#select2-zyvh-result-tu4u-CA"));
@@ -156,9 +182,6 @@ public class SeleniumEasyII {
              SearchFieldState.click();
              SelectStateColorado.click();
              Assert.assertEquals("Alabama" +"Colorado", SearchFieldState.getText());  */
-
-
-
 
          }
 }
