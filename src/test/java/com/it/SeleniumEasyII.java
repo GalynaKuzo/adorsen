@@ -139,7 +139,7 @@ public class SeleniumEasyII {
             GoToInputFormsMenuRepeatAgainAgain.click();
             JqueryDropdownSearch_Menu.click();
 
-            WebElement SelectCountry = driver.findElementByXPath("/html/body/div[2]/div/div[2]/div[1]/div/div[2]/span/span[1]/span");
+            /* WebElement SelectCountry = driver.findElementByXPath("/html/body/div[2]/div/div[2]/div[1]/div/div[2]/span/span[1]/span");
             SelectCountry.click();
 
             WebElement SearchFieldCountry = driver.findElement(By.xpath("/html/body/span/span/span[1]/input"));
@@ -184,7 +184,36 @@ public class SeleniumEasyII {
             Assert.assertEquals(SelectStateInput.getAttribute("placeholder"), "Select state(s)");        //Selected State is removed
 
             WebElement expandedDropdownCheck = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div[2]/span/span[1]/span"));
-            Assert.assertEquals(expandedDropdownCheck.getAttribute("aria-expanded"), "false");             //DropDown list is not displayed
+            Assert.assertEquals(expandedDropdownCheck.getAttribute("aria-expanded"), "false");             //DropDown list is not displayed  */
+
+            WebElement dropdownOutlyingTerritories = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div/div[2]/span/span[1]/span"));
+            Assert.assertEquals(dropdownOutlyingTerritories.getText(),"American Samoa");
+
+            dropdownOutlyingTerritories.click();
+            WebElement searchOutlyingTerritories = driver.findElement(By.cssSelector("body > span > span > span.select2-search.select2-search--dropdown > input"));
+            searchOutlyingTerritories.sendKeys("Guam");
+
+            int dropdownTerritorySize = driver.findElements(By.className("select2-results__options")).size();
+            Assert.assertEquals(dropdownTerritorySize, 1);
+
+            WebElement Guam = driver.findElementsByClassName("select2-results__option").get(0);
+            Assert.assertEquals(Guam.getText(), "Guam");
+            Assert.assertEquals(Guam.getAttribute("aria-disabled"), "true");
+
+            searchOutlyingTerritories.clear();
+
+            dropdownOutlyingTerritories.click();
+            dropdownOutlyingTerritories.click();
+            int AreaExpandedTerritories = driver.findElements(By.className("select2-results__option")).size();
+            Assert.assertEquals(AreaExpandedTerritories, 6);
+
+            WebElement disableterritoryUnitedStatesIslands = driver.findElementsByClassName("select2-results__option").get(4);
+            Assert.assertEquals(disableterritoryUnitedStatesIslands.getAttribute("aria-disabled"), "true");
+            disableterritoryUnitedStatesIslands.click();
+
+
+
+
 
 
 
